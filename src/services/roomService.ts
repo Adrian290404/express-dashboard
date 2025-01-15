@@ -1,32 +1,28 @@
 import { Room } from "../interfaces/room";
-import { rooms as roomsData } from "../data/rooms";
+import RoomModel from "../models/roomModel";
 
-let rooms: Room[] = roomsData;
-
-export const fetchAllRooms = () => {
-    return rooms;
+export const fetchAllRooms = async () => {
+    return await RoomModel.find();
 }
 
-export const fetchRoomById = (id: number) => {
-    return rooms.find((room) => room.id === id);
+export const fetchRoomById = async (id: number) => {
+    return await RoomModel.findById(id);
 }
 
-export const addRoom = (newRoom: Room) => {
+export const addRoom = async (newRoom: Room) => {
     if ( !newRoom.room_name || !newRoom.bed_type || !newRoom.room_floor || !newRoom.facilities || !newRoom.rate || newRoom.avaiable === undefined || !newRoom.image ) {
         throw new Error('All fields are required');
     }
-    rooms.push(newRoom);
-    return rooms;
+    const newRoomInstance = new RoomModel(newRoom);
+    await newRoomInstance.save();
+
+    return newRoomInstance;
 };
 
-export const editRoom = (id: number, updatedRoom: Room) => {
-    rooms = rooms.map((room) =>
-        room.id === id ? { ...room, ...updatedRoom } : room
-    );
-    return rooms;
+export const editRoom = async (id: number, updatedRoom: Room) => {
+    return await RoomModel.findByIdAndUpdate(id, updatedRoom, { new: true });
 }
 
-export const removeRoom = (id: number) => {
-    rooms = rooms.filter((room) => room.id !== id);
-    return rooms;
+export const removeRoom = async (id: number) => {
+    return await RoomModel.findByIdAndDelete(id);
 }

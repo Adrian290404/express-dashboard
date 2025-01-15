@@ -1,32 +1,28 @@
 import { Employee } from "../interfaces/employee";
-import { employees as employeesData } from "../data/employees";
+import EmployeeModel from "../models/employeeModel";
 
-let employees: Employee[] = employeesData;
-
-export const fetchAllEmployees = () => {
-    return employees;
+export const fetchAllEmployees = async () => {
+    return await EmployeeModel.find();
 }
 
-export const fetchEmployeeById = (id: number) => {
-    return employees.find((user) => user.id === id);
+export const fetchEmployeeById = async (id: number) => {
+    return await EmployeeModel.findById(id);
 }
 
-export const addEmployee = (newUser: Employee) => {
+export const addEmployee = async (newUser: Employee) => {
     if ( !newUser.name || !newUser.image || !newUser.join || !newUser.job_desk || !newUser.schedule || !newUser.contact ) {
         throw new Error('All fields are required');
     }
-    employees.push(newUser);
-    return employees;
+    const newEmployeeInstance = new EmployeeModel(newUser);
+    await newEmployeeInstance.save();
+
+    return newEmployeeInstance;
 };
 
-export const editEmployee = (id: number, updatedUser: Employee) => {
-    employees = employees.map((user) =>
-        user.id === id ? { ...user, ...updatedUser } : user
-    );
-    return employees;
+export const editEmployee = async (id: number, updatedUser: Employee) => {
+    return await EmployeeModel.findByIdAndUpdate(id, updatedUser, { new: true });
 }
 
-export const removeEmployee = (id: number) => {
-    employees = employees.filter((user) => user.id !== id);
-    return employees
+export const removeEmployee = async (id: number) => {
+    return await EmployeeModel.findByIdAndDelete(id);
 }

@@ -1,17 +1,15 @@
 import { Review } from "../interfaces/review";
-import { reviews as reviewsData } from "../data/reviews";
+import ReviewModel from "../models/reviewModel";
 
-let reviews: Review[] = reviewsData;
-
-export const fetchAllReviews = () => {
-    return reviews;
+export const fetchAllReviews = async () => {
+    return await ReviewModel.find();
 }
 
-export const fetchReviewById = (id: number) => {
-    return reviews.find((review) => review.order_id === id);
+export const fetchReviewById = async (id: number) => {
+    return await ReviewModel.findById(id);
 }
 
-export const addReview = (newReview: Review) => {
+export const addReview = async (newReview: Review) => {
     const { order_id, date, customer, rating, review, action } = newReview;
     if (!order_id || !date || !customer || !rating || !review || !action) {
         throw new Error('All fields are required');
@@ -22,19 +20,17 @@ export const addReview = (newReview: Review) => {
     if (!['pending', 'approved', 'rejected'].includes(action)) {
         throw new Error('Action must be one of "pending", "approved", or "rejected"');
     }
-    reviews.push(newReview);
-    return reviews;
+    const newReviewInstance = new ReviewModel(newReview);
+    await newReviewInstance.save();
+
+    return newReviewInstance;
 };
 
 
-export const editReview = (id: number, updatedReview: Review) => {
-    reviews = reviews.map((review) =>
-        review.order_id === id ? { ...review, ...updatedReview } : review
-    );
-    return reviews;
+export const editReview = async (id: number, updatedReview: Review) => {
+    return await ReviewModel.findByIdAndUpdate(id, updatedReview, { new: true });
 };
 
-export const removeReview = (id: number) => {
-    reviews = reviews.filter((review) => review.order_id !== id);
-    return reviews;
+export const removeReview = async (id: number) => {
+    return await ReviewModel.findByIdAndDelete(id);
 }

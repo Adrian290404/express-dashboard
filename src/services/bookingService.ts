@@ -1,37 +1,33 @@
 import { Booking } from "../interfaces/booking";
-import { bookings as bookingData } from "../data/bookings";
+import BookingModel from "../models/bookingModel";
 
-let bookings: Booking[] = bookingData;
-
-export const fetchAllBookings = () => {
-    return bookings;
+export const fetchAllBookings = async () => {
+    return await BookingModel.find();
 };
 
-export const fetchBookingById = (id: number) => {
-    return bookings.find((booking) => booking.id === id);
+export const fetchBookingById = async (id: number) => {
+    return await BookingModel.findById(id);
 };
 
-export const addBooking = (newBooking: Booking) => {
+export const addBooking = async (newBooking: Booking) => {
     if (!newBooking.user_id || !newBooking.room_id || !newBooking.check_in || !newBooking.check_out || !newBooking.order_date || !newBooking.id) {
         throw new Error('Missing required fields');
     }
     const specialRequest = newBooking.special_request || "";
     const bookingWithDefaults: Booking = {
         ...newBooking,
-        special_request: specialRequest, 
+        special_request: specialRequest,
     };
-    bookings.push(bookingWithDefaults);
-    return bookingWithDefaults;
+    const newBookingInstance = new BookingModel(bookingWithDefaults);
+    await newBookingInstance.save();
+
+    return newBookingInstance;
 };
 
-export const editBooking = (id: number, updatedBooking: Booking) => {
-    bookings = bookings.map((booking) =>
-        booking.id === id ? { ...booking, ...updatedBooking } : booking
-    );
-    return bookings;
+export const editBooking = async (id: number, updatedBooking: Booking) => {
+    return await BookingModel.findByIdAndUpdate(id, updatedBooking, { new: true });
 };
 
-export const removeBooking = (id: number) => {
-    bookings = bookings.filter((booking) => booking.id !== id);
-    return bookings;
+export const removeBooking = async (id: number) => {
+    return await BookingModel.findByIdAndDelete(id);
 };
