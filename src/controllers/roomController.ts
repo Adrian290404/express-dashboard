@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { fetchAllRooms, fetchRoomById, removeRoom, editRoom, addRoom } from "../services/roomService";
 
-export const getAllRooms = (req: Request, res: Response) => {
-    const rooms = fetchAllRooms()
+export const getAllRooms = async (req: Request, res: Response) => {
+    const rooms = await fetchAllRooms()
     res.status(200).json(rooms)
 }
 
-export const getRoomById = (req: Request, res: Response) => {
+export const getRoomById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const roomId = Number(id);
-    const room = fetchRoomById(roomId);
+    const room = await fetchRoomById(roomId);
     if (!room) {
         res.status(404).json({ message: 'Room not found' })
         return;
@@ -17,23 +17,23 @@ export const getRoomById = (req: Request, res: Response) => {
     res.status(200).json(room);
 }
 
-export const createRoom = (req: Request, res: Response) => {
+export const createRoom = async (req: Request, res: Response) => {
     const newRoom = req.body;
-    const rooms = addRoom(newRoom);
+    const rooms = await addRoom(newRoom);
     res.status(201).json(rooms);
 }
 
-export const updateRoom = (req: Request, res: Response) => {
+export const updateRoom = async (req: Request, res: Response) => {
     const { id } = req.params;
     const roomId = Number(id);
     const updatedRoom = req.body;
-    const rooms = editRoom(roomId, updatedRoom);
+    const rooms = await editRoom(roomId, updatedRoom);
     res.status(200).json(rooms)
 }
 
-export const deleteRoom = (req: Request, res: Response) => {
+export const deleteRoom = async (req: Request, res: Response) => {
     const { id } = req.params;
     const roomId = Number(id);
-    const rooms = removeRoom(roomId);
+    const rooms = await removeRoom(roomId);
     res.status(200).json(rooms);
 }
