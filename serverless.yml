@@ -1,0 +1,27 @@
+service: nombre-de-tu-api
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    NODE_ENV: production
+
+functions:
+  app:
+    handler: server.handler
+    events:
+      - http:
+          path: {proxy+}
+          method: any
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+package:
+  exclude:
+    - node_modules/**
+    - .gitignore
+    - .env
+    - **/*.test.js
+    - **/__tests__/**

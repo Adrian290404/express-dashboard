@@ -1,0 +1,27 @@
+/api/auth/login (POST)
+
+{
+    "username": "adrian", 
+    "password": "1234"
+}
+
+Poner en Headers:
+
+Bearer + token (sin comillas)
+
+-----------------------------
+
+/api (GET) --> publico
+
+-----------------------------
+
+/api/protected
+    /bookings (user_id, room_id, check_in, check_out, order_date, id, special_request)
+    /reviews (order_id, date, customer, rating, review, action)
+    /rooms (id, room_name, bed_type, room_floor, facilities, rate, avaiable, image)
+    /employees (id, name, image, join, job_desk, schedule, contact)
+        / (GET) -> listado
+        /:id (GET) -> ver uno
+        / (POST) -> crear
+        /:id (PUT) -> actualizar
+        /:id (DELETE) -> borrar

@@ -17,3 +17,5 @@ app.use('/api/protected', privatedRoutes);
 app.listen(port, () => {
     console.log(`http://localhost:${port}`)
 })
+
+export default app;
