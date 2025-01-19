@@ -3,6 +3,12 @@ import { Booking } from '../interfaces/booking';
 import { Review } from '../interfaces/review';
 import { Employee } from '../interfaces/employee';
 import { Room } from '../interfaces/room';
+import mongoose from 'mongoose';
+import connectDB from './conection';
+import BookingModel from '../models/bookingModel';
+import ReviewModel from '../models/reviewModel';
+import RoomModel from '../models/roomModel';
+import EmployeeModel from '../models/employeeModel';
 
 let bookingIdCounter = 1;
 const createRandomBooking = (): Booking => {
@@ -12,9 +18,9 @@ const createRandomBooking = (): Booking => {
         order_date: faker.date.past().toISOString(),
         check_in: faker.date.future().toISOString(),
         check_out: faker.date.future().toISOString(),
-        special_request: faker.lorem.words(faker.number.int({ min: 0, max: 5 })),
+        special_request: faker.lorem.words(faker.number.int({ min: 1, max: 5 })),
         room_id: faker.number.int({ min: 0, max: 10 }),
-        status: faker.helpers.arrayElement(['Booking', 'Refund', 'Pending', 'Cancelled'])
+        status: faker.helpers.arrayElement(['Booked', 'Refund', 'Pending', 'Cancelled'])
     }
 }
 
@@ -58,7 +64,38 @@ const createRandomRoom = (): Room => {
     }
 }
 
-export const bookingSeed = faker.helpers.multiple(createRandomBooking, { count: 10 });
-export const reviewSeed = faker.helpers.multiple(createRandomReview, { count: 10 });
-export const employeeSeed = faker.helpers.multiple(createRandomEmployee, { count: 10 });
-export const roomSeed = faker.helpers.multiple(createRandomRoom, { count: 10 });
+const bookingSeed = faker.helpers.multiple(createRandomBooking, { count: 10 });
+const reviewSeed = faker.helpers.multiple(createRandomReview, { count: 10 });
+const employeeSeed = faker.helpers.multiple(createRandomEmployee, { count: 10 });
+const roomSeed = faker.helpers.multiple(createRandomRoom, { count: 10 });
+
+const seedDatabase = async () => {
+    try {
+        await connectDB();
+        console.log("Conectado a MongoDB");
+
+        await Promise.all([
+            BookingModel.deleteMany({}),
+            ReviewModel.deleteMany({}),
+            EmployeeModel.deleteMany({}),
+            RoomModel.deleteMany({})
+        ]);
+
+        await Promise.all([
+            BookingModel.insertMany(bookingSeed),
+            ReviewModel.insertMany(reviewSeed),
+            EmployeeModel.insertMany(employeeSeed),
+            RoomModel.insertMany(roomSeed)
+        ]);
+
+        console.log("Base de datos llena");
+    } 
+    catch (error) {
+        console.error("Error al insertar los datos:", error);
+    } 
+    finally {
+        mongoose.connection.close();
+    }
+};
+
+seedDatabase();
