@@ -11,7 +11,7 @@ export const getEmployee = async (req: Request, res: Response) => {
     const employeeId = Number(id);
     const employees = await fetchEmployeeById(employeeId);
     if (!employees) {
-        res.status(404).json({ message: 'User not found' })
+        res.status(404).json({ message: 'Employee not found' })
         return;
     }
     res.status(200).json(employees);

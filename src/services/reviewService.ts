@@ -5,8 +5,8 @@ export const fetchAllReviews = async () => {
     return await ReviewModel.find();
 }
 
-export const fetchReviewById = async (id: number) => {
-    return await ReviewModel.findById(id);
+export const fetchReviewById = async (order_id: number) => {
+    return await ReviewModel.findOne({ order_id });
 }
 
 export const addReview = async (newReview: Review) => {

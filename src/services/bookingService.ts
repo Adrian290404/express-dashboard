@@ -6,12 +6,16 @@ export const fetchAllBookings = async () => {
 };
 
 export const fetchBookingById = async (id: number) => {
-    return await BookingModel.findById(id);
+    return await BookingModel.findOne({ id });
 };
 
 export const addBooking = async (newBooking: Booking) => {
     if (!newBooking.user_id || !newBooking.room_id || !newBooking.check_in || !newBooking.check_out || !newBooking.order_date || !newBooking.id) {
         throw new Error('Missing required fields');
+    }
+    const existingBooking = await BookingModel.findOne({ id: newBooking.id });
+    if (existingBooking) {
+        throw new Error(`Booking with id ${newBooking.id} already exists`);
     }
     const specialRequest = newBooking.special_request || "";
     const bookingWithDefaults: Booking = {
@@ -25,9 +29,9 @@ export const addBooking = async (newBooking: Booking) => {
 };
 
 export const editBooking = async (id: number, updatedBooking: Booking) => {
-    return await BookingModel.findByIdAndUpdate(id, updatedBooking, { new: true });
+    return await BookingModel.findOneAndUpdate({ id }, updatedBooking, { new: true });
 };
 
 export const removeBooking = async (id: number) => {
-    return await BookingModel.findByIdAndDelete(id);
+    return await BookingModel.findOneAndDelete({ id });
 };

@@ -6,7 +6,7 @@ export const fetchAllEmployees = async () => {
 }
 
 export const fetchEmployeeById = async (id: number) => {
-    return await EmployeeModel.findById(id);
+    return await EmployeeModel.findOne({ id });
 }
 
 export const addEmployee = async (newUser: Employee) => {

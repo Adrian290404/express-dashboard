@@ -17,10 +17,18 @@ export const getBooking = async (req: Request, res: Response) => {
 }
 
 export const createBooking = async (req: Request, res: Response) => {
-    const newBooking = req.body;
-    const bookings = await addBooking(newBooking);
-    res.status(201).json(bookings)
-}
+    try {
+        const newBooking = req.body;
+        const bookings = await addBooking(newBooking);
+        res.status(201).json(bookings);
+    } 
+    catch (error) {
+        console.error("Error en createBooking:", error);
+        res.status(400).json({
+            message: 'Booking already exists or missing data'
+        });
+    }
+};
 
 export const updateBooking = async (req: Request, res: Response) => {
     const updatedBooking = req.body;

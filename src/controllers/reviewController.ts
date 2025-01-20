@@ -11,7 +11,7 @@ export const getReview = async (req: Request, res: Response) => {
     const reviewId = Number(id);
     const review = await fetchReviewById(reviewId);
     if (!review) {
-        res.status(404).json({ message: "Contact not found" });
+        res.status(404).json({ message: "Review not found" });
     }
     res.status(200).json(review);
 };

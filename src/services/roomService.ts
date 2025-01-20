@@ -6,7 +6,7 @@ export const fetchAllRooms = async () => {
 }
 
 export const fetchRoomById = async (id: number) => {
-    return await RoomModel.findById(id);
+    return await RoomModel.findOne({ id });
 }
 
 export const addRoom = async (newRoom: Room) => {
