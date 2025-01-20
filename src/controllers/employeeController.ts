@@ -18,9 +18,17 @@ export const getEmployee = async (req: Request, res: Response) => {
 }
 
 export const createEmployee = async (req: Request, res: Response) => {
-    const newEmployee = req.body;
-    const employees = await addEmployee(newEmployee);
-    res.status(201).json(employees)
+    try {
+        const newEmployee = req.body;
+        const employees = await addEmployee(newEmployee);
+        res.status(201).json(employees)
+    } 
+    catch (error) {
+        console.error("Error on createEmployee:", error);
+        res.status(400).json({
+            message: 'Employee already exists or missing data'
+        });
+    }
 }
 
 export const updateEmployee = async (req: Request, res: Response) => {

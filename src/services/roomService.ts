@@ -13,6 +13,10 @@ export const addRoom = async (newRoom: Room) => {
     if ( !newRoom.room_name || !newRoom.bed_type || !newRoom.room_floor || !newRoom.facilities || !newRoom.rate || newRoom.avaiable === undefined || !newRoom.image ) {
         throw new Error('All fields are required');
     }
+    const existingRoom = await RoomModel.findOne({ id: newRoom.id });
+    if (existingRoom) {
+        throw new Error(`Room with id ${newRoom.id} already exists`);
+    }
     const newRoomInstance = new RoomModel(newRoom);
     await newRoomInstance.save();
 
@@ -20,9 +24,9 @@ export const addRoom = async (newRoom: Room) => {
 };
 
 export const editRoom = async (id: number, updatedRoom: Room) => {
-    return await RoomModel.findByIdAndUpdate(id, updatedRoom, { new: true });
+    return await RoomModel.findOneAndUpdate({id}, updatedRoom, { new: true });
 }
 
 export const removeRoom = async (id: number) => {
-    return await RoomModel.findByIdAndDelete(id);
+    return await RoomModel.findOneAndDelete({id});
 }

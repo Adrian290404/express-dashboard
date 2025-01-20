@@ -23,7 +23,7 @@ export const createBooking = async (req: Request, res: Response) => {
         res.status(201).json(bookings);
     } 
     catch (error) {
-        console.error("Error en createBooking:", error);
+        console.error("Error on createBooking:", error);
         res.status(400).json({
             message: 'Booking already exists or missing data'
         });

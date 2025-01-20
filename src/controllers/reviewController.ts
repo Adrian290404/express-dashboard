@@ -17,9 +17,17 @@ export const getReview = async (req: Request, res: Response) => {
 };
 
 export const createReview = async (req: Request, res: Response) => {
-    const newReview = req.body;
-    const updatedReview = await addReview(newReview);
-    res.status(201).json(updatedReview);
+    try {
+        const newReview = req.body;
+        const updatedReview = await addReview(newReview);
+        res.status(201).json(updatedReview);
+    } 
+    catch (error) {
+        console.error("Error on createReview:", error);
+        res.status(400).json({
+            message: 'Review already exists or missing data'
+        });
+    }
 };
 
 export const updateReview = async (req: Request, res: Response) => {

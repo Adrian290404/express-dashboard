@@ -20,6 +20,10 @@ export const addReview = async (newReview: Review) => {
     if (!['pending', 'approved', 'rejected'].includes(action)) {
         throw new Error('Action must be one of "pending", "approved", or "rejected"');
     }
+    const existingReview = await ReviewModel.findOne({ order_id: newReview.order_id });
+    if (existingReview) {
+        throw new Error(`Review with order_id ${newReview.order_id} already exists`);
+    }
     const newReviewInstance = new ReviewModel(newReview);
     await newReviewInstance.save();
 
@@ -27,10 +31,10 @@ export const addReview = async (newReview: Review) => {
 };
 
 
-export const editReview = async (id: number, updatedReview: Review) => {
-    return await ReviewModel.findByIdAndUpdate(id, updatedReview, { new: true });
+export const editReview = async (order_id: number, updatedReview: Review) => {
+    return await ReviewModel.findOneAndUpdate({order_id}, updatedReview, { new: true });
 };
 
-export const removeReview = async (id: number) => {
-    return await ReviewModel.findByIdAndDelete(id);
+export const removeReview = async (order_id: number) => {
+    return await ReviewModel.findOneAndDelete({order_id});
 }

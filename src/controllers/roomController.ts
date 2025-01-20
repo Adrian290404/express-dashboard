@@ -18,9 +18,17 @@ export const getRoomById = async (req: Request, res: Response) => {
 }
 
 export const createRoom = async (req: Request, res: Response) => {
-    const newRoom = req.body;
-    const rooms = await addRoom(newRoom);
-    res.status(201).json(rooms);
+    try {
+        const newRoom = req.body;
+        const rooms = await addRoom(newRoom);
+        res.status(201).json(rooms);
+    } 
+    catch (error) {
+        console.error("Error on createRoom:", error);
+        res.status(400).json({
+            message: 'Room already exists or missing data'
+        });
+    }
 }
 
 export const updateRoom = async (req: Request, res: Response) => {

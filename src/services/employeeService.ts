@@ -13,6 +13,10 @@ export const addEmployee = async (newUser: Employee) => {
     if ( !newUser.name || !newUser.image || !newUser.join || !newUser.job_desk || !newUser.schedule || !newUser.contact ) {
         throw new Error('All fields are required');
     }
+    const existingEmployee = await EmployeeModel.findOne({ id: newUser.id });
+    if (existingEmployee) {
+        throw new Error(`Employee with id ${newUser.id} already exists`);
+    }
     const newEmployeeInstance = new EmployeeModel(newUser);
     await newEmployeeInstance.save();
 
@@ -20,9 +24,9 @@ export const addEmployee = async (newUser: Employee) => {
 };
 
 export const editEmployee = async (id: number, updatedUser: Employee) => {
-    return await EmployeeModel.findByIdAndUpdate(id, updatedUser, { new: true });
+    return await EmployeeModel.findOneAndUpdate({ id }, updatedUser, { new: true });
 }
 
 export const removeEmployee = async (id: number) => {
-    return await EmployeeModel.findByIdAndDelete(id);
+    return await EmployeeModel.findOneAndDelete({ id });
 }
