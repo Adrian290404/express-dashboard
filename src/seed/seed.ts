@@ -14,12 +14,12 @@ let bookingIdCounter = 1;
 const createRandomBooking = (): Booking => {
     return{
         id: bookingIdCounter++,
-        user_id: faker.number.int({ min: 0, max: 10 }),
-        order_date: faker.date.past().toISOString(),
+        user_id: faker.number.int({ min: 1, max: 10 }),
+        room_id: faker.number.int({ min: 1, max: 10 }),
         check_in: faker.date.future().toISOString(),
         check_out: faker.date.future().toISOString(),
         special_request: faker.lorem.words(faker.number.int({ min: 1, max: 5 })),
-        room_id: faker.number.int({ min: 0, max: 10 }),
+        order_date: faker.date.past().toISOString(),
         status: faker.helpers.arrayElement(['Booked', 'Refund', 'Pending', 'Cancelled'])
     }
 }
