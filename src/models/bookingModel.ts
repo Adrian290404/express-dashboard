@@ -7,7 +7,7 @@ const bookingSchema = new Schema<Booking>({
     room_id: { type: Number, required: true },
     check_in: { type: String, required: true },
     check_out: { type: String, required: true },
-    special_request: { type: String, required: true },
+    special_request: { type: String, default: "" },
     order_date: { type: String, required: true },
     status: { type: String, required: true}
 });
