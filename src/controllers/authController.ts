@@ -8,9 +8,9 @@ dotenv.config();
 const secretKey = process.env.SECRET_KEY as string;
 
 export const login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     try {
-        const foundUser = await AuthModel.findOne({ username });
+        const foundUser = await AuthModel.findOne({ email });
         if (!foundUser) {
             res.status(401).json({ message: "User not found "});
             return;
@@ -19,10 +19,14 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
             res.status(401).json({ message: "Incorrect password"});
             return;
         }
-        const token = jwt.sign({ username: foundUser.username }, secretKey, {
+        const token = jwt.sign({ email: foundUser.email }, secretKey, {
             expiresIn: "1h",
         });
-        res.status(200).json({ token });
+        res.status(200).json({
+            token,
+            email: foundUser.email,
+            username: foundUser.username,
+        });
     } 
     catch (err) {
         console.error("Error during login:", err);

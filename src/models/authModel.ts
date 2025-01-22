@@ -2,7 +2,8 @@ import mongoose, {Schema} from "mongoose";
 import { Auth } from "../interfaces/auth";
 
 export const authSchema = new Schema<Auth>({
-    username: { type: String, required: true, unique: true },
+    username: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true }
 });
 const AuthModel = mongoose.model<Auth>('Auth', authSchema);

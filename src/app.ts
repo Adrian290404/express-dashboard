@@ -1,6 +1,7 @@
 import express, { Response, Request } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors";
 import authRoutes from "./routes/authRoutes";
 import privatedRoutes from "./routes/privateRoutes";
 import publicRoutes from "./routes/publicRoutes";
@@ -9,6 +10,12 @@ dotenv.config();
 
 const app = express();
 const port = 3000;
+
+app.use(cors({
+    origin: "http://localhost:5173", 
+    methods: "GET,POST,PUT,DELETE", 
+    credentials: true 
+}));
 
 app.use(express.json());
 
