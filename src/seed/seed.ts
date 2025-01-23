@@ -52,12 +52,13 @@ const createRandomEmployee = (): Employee => {
 
 let roomIdCounter = 1;
 const createRandomRoom = (): Room => {
+    const facilitiesFaked = Array.from({ length: 5 }, () => faker.lorem.word()).join(', ');
     return{
         id: roomIdCounter++,
         room_name: faker.lorem.words(faker.number.int({ min: 2, max: 5 })),
         bed_type: faker.helpers.arrayElement(['Suite', 'Double Bed', 'Single Bed']),
         room_floor: faker.helpers.arrayElement(['Floor 1', 'Floor 2', 'Floor 3', 'Floor 4']),
-        facilities: faker.lorem.sentence(),
+        facilities: facilitiesFaked,
         rate: faker.number.int({ min: 100, max: 1000 }),
         avaiable: faker.datatype.boolean(),
         image: faker.image.avatarGitHub()
