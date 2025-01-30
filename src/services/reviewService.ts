@@ -10,8 +10,8 @@ export const fetchReviewById = async (order_id: number) => {
 }
 
 export const addReview = async (newReview: Review) => {
-    const { order_id, date, customer, rating, review, action } = newReview;
-    if (!order_id || !date || !customer || !rating || !review || !action) {
+    const { order_id, date, user_id, rating, review, action } = newReview;
+    if (!order_id || !date || !user_id || !rating || !review || !action) {
         throw new Error('All fields are required');
     }
     if (rating < 1 || rating > 5) {

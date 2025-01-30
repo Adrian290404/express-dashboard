@@ -31,11 +31,19 @@ export const createBooking = async (req: Request, res: Response) => {
 };
 
 export const updateBooking = async (req: Request, res: Response) => {
-    const updatedBooking = req.body;
-    const { id } = req.params;
-    const bookingId = Number(id);
-    const bookings = await editBooking(bookingId, updatedBooking)
-    res.status(200).json(bookings);
+    try{
+        const updatedBooking = req.body;
+        const { id } = req.params;
+        const bookingId = Number(id);
+        const bookings = await editBooking(bookingId, updatedBooking)
+        res.status(200).json(bookings);
+    }
+    catch (error) {
+        console.error("Error on updateBooking:", error);
+        res.status(400).json({
+            message: 'Booking not found or missing data'
+        });
+    }
 }
 
 export const deleteBooking = async (req: Request, res: Response) => {
