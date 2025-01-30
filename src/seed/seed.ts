@@ -45,7 +45,7 @@ const createRandomEmployee = (): Employee => {
         id: employeeIdCounter++,
         name: faker.person.fullName(),
         image: faker.image.avatar(),
-        join: format(faker.date.past(), 'yyyy-MM-dd HH:mm:ss'),
+        join_date: format(faker.date.past(), 'yyyy-MM-dd HH:mm:ss'),
         job_desk: faker.person.jobType(),
         schedule: faker.helpers.arrayElements(daysOfWeek, 2).join(", "),
         contact: faker.phone.number()
@@ -182,7 +182,7 @@ const insertData = async () => {
         for (const employee of employeeSeed) {
             await connection.query(
                 `INSERT INTO employees (name, image, join_date, job_desk, schedule, contact) VALUES (?, ?, ?, ?, ?, ?)`,
-                [employee.name, employee.image, employee.join, employee.job_desk, employee.schedule, employee.contact]
+                [employee.name, employee.image, employee.join_date, employee.job_desk, employee.schedule, employee.contact]
             );
         }
 
