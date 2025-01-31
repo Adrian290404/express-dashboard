@@ -111,9 +111,10 @@ const createTables = async () => {
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 room_name VARCHAR(100) NOT NULL,
                 bed_type VARCHAR(100) NOT NULL,
+                room_floor VARCHAR(100) NOT NULL,
                 facilities VARCHAR(200) NOT NULL,
                 rate INT NOT NULL,
-                available TINYINT NOT NULL DEFAULT 1,
+                avaiable TINYINT NOT NULL DEFAULT 1,
                 image VARCHAR(500) NOT NULL
             );
         `);
@@ -174,8 +175,8 @@ const insertData = async () => {
 
         for (const room of roomSeed) {
             await connection.query(
-                `INSERT INTO rooms (room_name, bed_type, facilities, rate, available, image) VALUES (?, ?, ?, ?, ?, ?)`,
-                [room.room_name, room.bed_type, room.facilities, room.rate, room.avaiable, room.image]
+                `INSERT INTO rooms (room_name, bed_type, room_floor, facilities, rate, avaiable, image) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                [room.room_name, room.bed_type, room.room_floor, room.facilities, room.rate, room.avaiable, room.image]
             );
         }
 
