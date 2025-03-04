@@ -118,7 +118,7 @@ const createTables = async () => {
                 image VARCHAR(500) NOT NULL
             );
         `);
-
+        
         await connection.query(`
             CREATE TABLE IF NOT EXISTS employees (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -126,11 +126,11 @@ const createTables = async () => {
                 image VARCHAR(500) NOT NULL,
                 join_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 job_desk VARCHAR(100) NOT NULL,
-                schedule VARCHAR(100) NOT NULL DEFAULT 'no se porque da error',
+                schedule VARCHAR(100) NOT NULL DEFAULT 'No definido',
                 contact VARCHAR(50) NOT NULL
             );
         `);
-
+        
         await connection.query(`
             CREATE TABLE IF NOT EXISTS reviews (
                 order_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -139,10 +139,10 @@ const createTables = async () => {
                 rating INT NOT NULL,
                 review VARCHAR(250) NOT NULL,
                 action ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
-                FOREIGN KEY (user_id) references employees(id)
+                FOREIGN KEY (user_id) REFERENCES employees(id) ON DELETE CASCADE
             );
         `);
-
+        
         await connection.query(`
             CREATE TABLE IF NOT EXISTS bookings (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -153,10 +153,10 @@ const createTables = async () => {
                 special_request VARCHAR(200) DEFAULT '',
                 order_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 status ENUM('Booked', 'Refund', 'Cancelled', 'Pending') DEFAULT 'Pending',
-                FOREIGN KEY (user_id) references employees(id),
-                FOREIGN KEY (room_id) references rooms(id)
+                FOREIGN KEY (user_id) REFERENCES employees(id) ON DELETE CASCADE,
+                FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
             );
-        `);
+        `);        
 
         console.log("Tablas creadas correctamente.");
     } 
