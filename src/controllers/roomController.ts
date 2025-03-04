@@ -20,8 +20,8 @@ export const getRoomById = async (req: Request, res: Response) => {
 export const createRoom = async (req: Request, res: Response) => {
     try {
         const newRoom = req.body;
-        const rooms = await addRoom(newRoom);
-        res.status(201).json(rooms);
+        const roomCreated = await addRoom(newRoom);
+        res.status(201).json({ id: roomCreated.identifier });
     } 
     catch (error) {
         console.error("Error on createRoom:", error);

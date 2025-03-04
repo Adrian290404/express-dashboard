@@ -61,8 +61,8 @@ export const addRoom = async (newRoom: Room) => {
                 newRoom.image
             ]
         );
-
-        return { ...newRoom};      
+        const roomId = (result as any).insertId;
+        return { identifier: roomId, ...newRoom };   
     }
     catch (err) {
         console.error('Error creating room:', err);
