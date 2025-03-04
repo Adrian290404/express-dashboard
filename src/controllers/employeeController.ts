@@ -20,8 +20,8 @@ export const getEmployee = async (req: Request, res: Response) => {
 export const createEmployee = async (req: Request, res: Response) => {
     try {
         const newEmployee = req.body;
-        const employees = await addEmployee(newEmployee);
-        res.status(201).json(employees)
+        const employeeCreated = await addEmployee(newEmployee);
+        res.status(201).json({ id: employeeCreated.identifier });
     } 
     catch (error) {
         console.error("Error on createEmployee:", error);

@@ -61,7 +61,8 @@ export const addEmployee = async (newUser: Employee) => {
             ]
         );
 
-        return { ...newUser};      
+        const userId = (result as any).insertId;
+        return { identifier: userId, ...newUser };   
     }
     catch (err) {
         console.error('Error creating employee:', err);
