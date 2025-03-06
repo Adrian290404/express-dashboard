@@ -1,27 +1,20 @@
-service: nombre-de-tu-api
+org: adrianmg
+app: api
+service: api
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs22.x
+  region: eu-west-3
+  stage: dev
   environment:
-    NODE_ENV: production
+    SECRET_KEY: ${env:SECRET_KEY}
+    MONGO_URI: ${env:MONGO_URI}
+    ATLAS_PASSWORD: ${env:ATLAS_PASSWORD}
+    ATLAS_USER: ${env:ATLAS_USER}
 
 functions:
-  app:
-    handler: server.handler
+  api:
+    handler: src/server.handler
     events:
-      - http:
-          path: {proxy+}
-          method: any
-
-plugins:
-  - serverless-offline
-  - serverless-dotenv-plugin
-
-package:
-  exclude:
-    - node_modules/**
-    - .gitignore
-    - .env
-    - **/*.test.js
-    - **/__tests__/**
+      - httpApi: "*"
