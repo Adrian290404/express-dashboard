@@ -91,7 +91,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-eu-west-3-9683524b-5a92",
-          "S3Key": "serverless/api/dev/1741247575519-2025-03-06T07:52:55.519Z/api.zip"
+          "S3Key": "serverless/api/dev/1741420199906-2025-03-08T07:49:59.906Z/api.zip"
         },
         "Handler": "src/server.handler",
         "Runtime": "nodejs22.x",
@@ -101,8 +101,8 @@
         "Environment": {
           "Variables": {
             "SECRET_KEY": "123",
-            "MONGO_URI": "mongodb+srv://adrianmg200429:Bx7Lu7q1dgF5K00J@adrianmartin04.dw8ql.mongodb.net/api",
-            "ATLAS_PASSWORD": "Bx7Lu7q1dgF5K00J",
+            "MONGO_URI": "mongodb+srv://adrianmg200429:hukqW5MgMK91Axgx@adrianmartin04.dw8ql.mongodb.net/api",
+            "ATLAS_PASSWORD": "hukqW5MgMK91Axgx",
             "ATLAS_USER": "adrianmg200429",
             "NODE_OPTIONS": "--enable-source-maps"
           }
@@ -118,14 +118,14 @@
         "ApiLogGroup"
       ]
     },
-    "ApiLambdaVersion4lPYXhwL9lddgLbgy8slRiARiJNpkWLRXy1JuVv4": {
+    "ApiLambdaVersionRpi61soJAQXNlt8LjK82TLHifXvYu1sgm5xXohUwCO0": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ApiLambdaFunction"
         },
-        "CodeSha256": "dWaZVNRO+mb6MzdIx/mCFO5ZGGwEiErnmvPnpHJFVYc="
+        "CodeSha256": "fMNwoM+t681YzjrW8+mheZQZ1JvI6/HEGcv5GAtra0I="
       }
     },
     "HttpApi": {
@@ -234,7 +234,7 @@
     "ApiLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ApiLambdaVersion4lPYXhwL9lddgLbgy8slRiARiJNpkWLRXy1JuVv4"
+        "Ref": "ApiLambdaVersionRpi61soJAQXNlt8LjK82TLHifXvYu1sgm5xXohUwCO0"
       },
       "Export": {
         "Name": "sls-api-dev-ApiLambdaFunctionQualifiedArn"

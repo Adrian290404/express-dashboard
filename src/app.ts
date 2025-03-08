@@ -21,7 +21,10 @@ app.use(express.json());
 
 const connectDB = async () => {
     try {
-        const mongoURI = process.env.MONGO_URI || "mongodb+srv://adrianmg200429:Bx7Lu7q1dgF5K00J@adrianmartin04.dw8ql.mongodb.net/api";
+        const mongoURI = process.env.MONGO_URI;
+        if (!mongoURI) {
+          throw new Error("La variable de entorno MONGO_URI no está definida");
+        }
         await mongoose.connect(mongoURI);
         console.log("Conexión a MongoDB exitosa");
     } catch (error) {

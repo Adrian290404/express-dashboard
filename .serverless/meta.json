@@ -14,7 +14,7 @@
         "stage": "dev",
         "environment": {
           "SECRET_KEY": "<REDACTED>",
-          "MONGO_URI": "mongodb+srv://adrianmg200429:Bx7Lu7q1dgF5K00J@adrianmartin04.dw8ql.mongodb.net/api",
+          "MONGO_URI": "mongodb+srv://adrianmg200429:hukqW5MgMK91Axgx@adrianmartin04.dw8ql.mongodb.net/api",
           "ATLAS_PASSWORD": "<REDACTED>",
           "ATLAS_USER": "adrianmg200429"
         },
@@ -112,7 +112,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-eu-west-3-9683524b-5a92",
-                  "S3Key": "serverless/api/dev/1741247575519-2025-03-06T07:52:55.519Z/api.zip"
+                  "S3Key": "serverless/api/dev/1741420199906-2025-03-08T07:49:59.906Z/api.zip"
                 },
                 "Handler": "src/server.handler",
                 "Runtime": "nodejs22.x",
@@ -122,7 +122,7 @@
                 "Environment": {
                   "Variables": {
                     "SECRET_KEY": "<REDACTED>",
-                    "MONGO_URI": "mongodb+srv://adrianmg200429:Bx7Lu7q1dgF5K00J@adrianmartin04.dw8ql.mongodb.net/api",
+                    "MONGO_URI": "mongodb+srv://adrianmg200429:hukqW5MgMK91Axgx@adrianmartin04.dw8ql.mongodb.net/api",
                     "ATLAS_PASSWORD": "<REDACTED>",
                     "ATLAS_USER": "adrianmg200429",
                     "NODE_OPTIONS": "--enable-source-maps"
@@ -139,14 +139,14 @@
                 "ApiLogGroup"
               ]
             },
-            "ApiLambdaVersion4lPYXhwL9lddgLbgy8slRiARiJNpkWLRXy1JuVv4": {
+            "ApiLambdaVersionRpi61soJAQXNlt8LjK82TLHifXvYu1sgm5xXohUwCO0": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "ApiLambdaFunction"
                 },
-                "CodeSha256": "dWaZVNRO+mb6MzdIx/mCFO5ZGGwEiErnmvPnpHJFVYc="
+                "CodeSha256": "fMNwoM+t681YzjrW8+mheZQZ1JvI6/HEGcv5GAtra0I="
               }
             },
             "HttpApi": {
@@ -255,7 +255,7 @@
             "ApiLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "ApiLambdaVersion4lPYXhwL9lddgLbgy8slRiARiJNpkWLRXy1JuVv4"
+                "Ref": "ApiLambdaVersionRpi61soJAQXNlt8LjK82TLHifXvYu1sgm5xXohUwCO0"
               },
               "Export": {
                 "Name": "sls-api-dev-ApiLambdaFunctionQualifiedArn"
@@ -317,7 +317,7 @@
           "timeout": 6,
           "runtime": "nodejs22.x",
           "vpc": {},
-          "versionLogicalId": "ApiLambdaVersion4lPYXhwL9lddgLbgy8slRiARiJNpkWLRXy1JuVv4"
+          "versionLogicalId": "ApiLambdaVersionRpi61soJAQXNlt8LjK82TLHifXvYu1sgm5xXohUwCO0"
         }
       }
     },
@@ -328,7 +328,7 @@
       "stage": "dev",
       "environment": {
         "SECRET_KEY": "<REDACTED>",
-        "MONGO_URI": "mongodb+srv://adrianmg200429:Bx7Lu7q1dgF5K00J@adrianmartin04.dw8ql.mongodb.net/api",
+        "MONGO_URI": "mongodb+srv://adrianmg200429:hukqW5MgMK91Axgx@adrianmartin04.dw8ql.mongodb.net/api",
         "ATLAS_PASSWORD": "<REDACTED>",
         "ATLAS_USER": "adrianmg200429"
       },
@@ -426,7 +426,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-eu-west-3-9683524b-5a92",
-                "S3Key": "serverless/api/dev/1741247575519-2025-03-06T07:52:55.519Z/api.zip"
+                "S3Key": "serverless/api/dev/1741420199906-2025-03-08T07:49:59.906Z/api.zip"
               },
               "Handler": "src/server.handler",
               "Runtime": "nodejs22.x",
@@ -436,7 +436,7 @@
               "Environment": {
                 "Variables": {
                   "SECRET_KEY": "<REDACTED>",
-                  "MONGO_URI": "mongodb+srv://adrianmg200429:Bx7Lu7q1dgF5K00J@adrianmartin04.dw8ql.mongodb.net/api",
+                  "MONGO_URI": "mongodb+srv://adrianmg200429:hukqW5MgMK91Axgx@adrianmartin04.dw8ql.mongodb.net/api",
                   "ATLAS_PASSWORD": "<REDACTED>",
                   "ATLAS_USER": "adrianmg200429",
                   "NODE_OPTIONS": "--enable-source-maps"
@@ -453,14 +453,14 @@
               "ApiLogGroup"
             ]
           },
-          "ApiLambdaVersion4lPYXhwL9lddgLbgy8slRiARiJNpkWLRXy1JuVv4": {
+          "ApiLambdaVersionRpi61soJAQXNlt8LjK82TLHifXvYu1sgm5xXohUwCO0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "dWaZVNRO+mb6MzdIx/mCFO5ZGGwEiErnmvPnpHJFVYc="
+              "CodeSha256": "fMNwoM+t681YzjrW8+mheZQZ1JvI6/HEGcv5GAtra0I="
             }
           },
           "HttpApi": {
@@ -569,7 +569,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersion4lPYXhwL9lddgLbgy8slRiARiJNpkWLRXy1JuVv4"
+              "Ref": "ApiLambdaVersionRpi61soJAQXNlt8LjK82TLHifXvYu1sgm5xXohUwCO0"
             },
             "Export": {
               "Name": "sls-api-dev-ApiLambdaFunctionQualifiedArn"
@@ -638,12 +638,12 @@
     "serviceProviderAwsCfStackName": "api-dev",
     "serviceProviderAwsCfStackId": "arn:aws:cloudformation:eu-west-3:343218226067:stack/api-dev/15dfc690-dc86-11ef-855d-06430d0a8673",
     "serviceProviderAwsCfStackCreated": "2025-01-27T08:09:52.592Z",
-    "serviceProviderAwsCfStackUpdated": "2025-03-06T07:50:11.573Z",
+    "serviceProviderAwsCfStackUpdated": "2025-03-08T07:46:10.557Z",
     "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
         "OutputKey": "ApiLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:eu-west-3:343218226067:function:api-dev-api:10",
+        "OutputValue": "arn:aws:lambda:eu-west-3:343218226067:function:api-dev-api:12",
         "Description": "Current Lambda function version",
         "ExportName": "sls-api-dev-ApiLambdaFunctionQualifiedArn"
       },
@@ -758,7 +758,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-eu-west-3-9683524b-5a92",
-              "S3Key": "serverless/api/dev/1741247575519-2025-03-06T07:52:55.519Z/api.zip"
+              "S3Key": "serverless/api/dev/1741420199906-2025-03-08T07:49:59.906Z/api.zip"
             },
             "Handler": "src/server.handler",
             "Runtime": "nodejs22.x",
@@ -768,7 +768,7 @@
             "Environment": {
               "Variables": {
                 "SECRET_KEY": "<REDACTED>",
-                "MONGO_URI": "mongodb+srv://adrianmg200429:Bx7Lu7q1dgF5K00J@adrianmartin04.dw8ql.mongodb.net/api",
+                "MONGO_URI": "mongodb+srv://adrianmg200429:hukqW5MgMK91Axgx@adrianmartin04.dw8ql.mongodb.net/api",
                 "ATLAS_PASSWORD": "<REDACTED>",
                 "ATLAS_USER": "adrianmg200429",
                 "NODE_OPTIONS": "--enable-source-maps"
@@ -785,14 +785,14 @@
             "ApiLogGroup"
           ]
         },
-        "ApiLambdaVersion4lPYXhwL9lddgLbgy8slRiARiJNpkWLRXy1JuVv4": {
+        "ApiLambdaVersionRpi61soJAQXNlt8LjK82TLHifXvYu1sgm5xXohUwCO0": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "ApiLambdaFunction"
             },
-            "CodeSha256": "dWaZVNRO+mb6MzdIx/mCFO5ZGGwEiErnmvPnpHJFVYc="
+            "CodeSha256": "fMNwoM+t681YzjrW8+mheZQZ1JvI6/HEGcv5GAtra0I="
           }
         },
         "HttpApi": {
@@ -901,7 +901,7 @@
         "ApiLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "ApiLambdaVersion4lPYXhwL9lddgLbgy8slRiARiJNpkWLRXy1JuVv4"
+            "Ref": "ApiLambdaVersionRpi61soJAQXNlt8LjK82TLHifXvYu1sgm5xXohUwCO0"
           },
           "Export": {
             "Name": "sls-api-dev-ApiLambdaFunctionQualifiedArn"

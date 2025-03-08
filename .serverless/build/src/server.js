@@ -92439,7 +92439,10 @@ app.use((0, import_cors.default)({
 app.use(import_express8.default.json());
 var connectDB = async () => {
   try {
-    const mongoURI = process.env.MONGO_URI || "mongodb+srv://adrianmg200429:Bx7Lu7q1dgF5K00J@adrianmartin04.dw8ql.mongodb.net/api";
+    const mongoURI = process.env.MONGO_URI;
+    if (!mongoURI) {
+      throw new Error("La variable de entorno MONGO_URI no est\xE1 definida");
+    }
     await import_mongoose6.default.connect(mongoURI);
     console.log("Conexi\xF3n a MongoDB exitosa");
   } catch (error) {
