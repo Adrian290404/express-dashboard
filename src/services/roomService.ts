@@ -1,5 +1,6 @@
 import { Room } from "../interfaces/room";
 import RoomModel from "../models/roomModel";
+import BookingModel from '../models/bookingModel'
 
 export const fetchAllRooms = async () => {
     return await RoomModel.find();
@@ -28,5 +29,6 @@ export const editRoom = async (id: number, updatedRoom: Room) => {
 }
 
 export const removeRoom = async (id: number) => {
-    return await RoomModel.findOneAndDelete({id});
+    await BookingModel.deleteMany({ room_id: id });
+    return await RoomModel.findOneAndDelete({ id });
 }

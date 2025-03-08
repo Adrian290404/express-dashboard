@@ -1,4 +1,5 @@
 import { Employee } from "../interfaces/employee";
+import BookingModel from "../models/bookingModel";
 import EmployeeModel from "../models/employeeModel";
 
 export const fetchAllEmployees = async () => {
@@ -28,5 +29,6 @@ export const editEmployee = async (id: number, updatedUser: Employee) => {
 }
 
 export const removeEmployee = async (id: number) => {
+    await BookingModel.deleteMany({ user_id: id });
     return await EmployeeModel.findOneAndDelete({ id });
 }
