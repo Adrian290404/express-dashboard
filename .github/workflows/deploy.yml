@@ -37,4 +37,5 @@ jobs:
           MONGO_URI: ${{ secrets.MONGO_URI }}
           ATLAS_PASSWORD: ${{ secrets.ATLAS_PASSWORD }}
           ATLAS_USER: ${{ secrets.ATLAS_USER }}
+          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
         run: serverless deploy --stage dev --region eu-west-3
