@@ -37,7 +37,7 @@ export const addEmployee = async (newUser: Employee) => {
 export const editEmployee = async (id: number, updatedUser: Employee) => {
     
     await createNotification({
-        type: 'edit',
+        type: 'update',
         collection: 'employees',
         details: { 
             message: `Employee updated: ${updatedUser.name}`, 

@@ -38,7 +38,7 @@ export const addRoom = async (newRoom: Room) => {
 export const editRoom = async (id: number, updatedRoom: Room) => {
     
     await createNotification({
-        type: 'edit',
+        type: 'update',
         collection: 'rooms',
         details: { 
             message: `Room updated: ${updatedRoom.room_name}`, 

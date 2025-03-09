@@ -31,7 +31,7 @@ export const addBooking = async (newBooking: Booking) => {
     const employee = await EmployeeModel.findOne({ id: newBooking.user_id });
     const room = await RoomModel.findOne({ id: newBooking.room_id });
     await createNotification({
-        type: 'edit',
+        type: 'create',
         collection: 'bookings',
         details: { 
             message: `Booking deleted: Room ${room?.room_name} booked by ${employee?.name}`, 
@@ -47,7 +47,7 @@ export const editBooking = async (id: number, updatedBooking: Booking) => {
     const employee = await EmployeeModel.findOne({ id: updatedBooking.user_id });
     const room = await RoomModel.findOne({ id: updatedBooking.room_id });
     await createNotification({
-        type: 'edit',
+        type: 'update',
         collection: 'bookings',
         details: { 
             message: `Booking deleted: Room ${room?.room_name} booked by ${employee?.name}`, 
