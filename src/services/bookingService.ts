@@ -51,7 +51,7 @@ export const editBooking = async (id: number, updatedBooking: Booking) => {
         collection: 'bookings',
         details: { 
             message: `Booking deleted: Room ${room?.room_name} booked by ${employee?.name}`, 
-            id: id
+            id: {id}
         }
     });
     
