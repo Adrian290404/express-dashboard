@@ -1,6 +1,7 @@
 import { Employee } from "../interfaces/employee";
 import BookingModel from "../models/bookingModel";
 import EmployeeModel from "../models/employeeModel";
+import { createNotification } from "./notificationService";
 
 export const fetchAllEmployees = async () => {
     return await EmployeeModel.find();
@@ -21,14 +22,46 @@ export const addEmployee = async (newUser: Employee) => {
     const newEmployeeInstance = new EmployeeModel(newUser);
     await newEmployeeInstance.save();
 
+    await createNotification({
+        type: 'create',
+        collection: 'employees',
+        details: { 
+            message: `New employee added: ${newUser.name}`, 
+            id: newUser.id 
+        }
+    });
+
     return newEmployeeInstance;
 };
 
 export const editEmployee = async (id: number, updatedUser: Employee) => {
+    
+    await createNotification({
+        type: 'edit',
+        collection: 'employees',
+        details: { 
+            message: `Employee updated: ${updatedUser.name}`, 
+            id: id
+        }
+    });
+
     return await EmployeeModel.findOneAndUpdate({ id }, updatedUser, { new: true });
 }
 
 export const removeEmployee = async (id: number) => {
+
+    const employee = await EmployeeModel.findOne({ id: id });
+    if (employee) {
+        await createNotification({
+            type: 'delete',
+            collection: 'employees',
+            details: { 
+                message: `Employee deleted: ${employee.name}`, 
+                redo: employee
+            }
+        });        
+    }
+
     await BookingModel.deleteMany({ user_id: id });
     return await EmployeeModel.findOneAndDelete({ id });
 }

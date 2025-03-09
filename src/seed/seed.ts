@@ -9,6 +9,7 @@ import BookingModel from '../models/bookingModel';
 import ReviewModel from '../models/reviewModel';
 import RoomModel from '../models/roomModel';
 import EmployeeModel from '../models/employeeModel';
+import NotificationModel from '../models/notificationModel';
 
 let bookingIdCounter = 1;
 const createRandomBooking = (): Booking => {
@@ -86,7 +87,8 @@ const seedDatabase = async () => {
             BookingModel.insertMany(bookingSeed),
             ReviewModel.insertMany(reviewSeed),
             EmployeeModel.insertMany(employeeSeed),
-            RoomModel.insertMany(roomSeed)
+            RoomModel.insertMany(roomSeed),
+            NotificationModel.deleteMany({})
         ]);
 
         console.log("Base de datos llena");
