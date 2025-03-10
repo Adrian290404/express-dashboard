@@ -3,18 +3,8 @@ import { getNotifications, getUnreadCount, markAsRead } from "../services/notifi
 
 export const getAllNotifications = async (req: Request, res: Response) => {
     try {
-        const page = parseInt(req.query.page as string) || 1;
-        const limit = parseInt(req.query.limit as string) || 10;
-
-        const notifications = await getNotifications(page, limit);
-        const totalNotifications = await getUnreadCount();
-
-        res.status(200).json({
-            notifications,
-            currentPage: page,
-            totalPages: Math.ceil(totalNotifications / limit),
-            totalNotifications,
-        });
+        const notifications = await getNotifications();
+        res.status(200).json(notifications);
     } 
     catch (error) {
         res.status(500).json({ error: "Error al obtener las notificaciones" });

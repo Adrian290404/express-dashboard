@@ -15,11 +15,8 @@ export const createNotification = async(notificationData: CreateNotification) =>
     return await notification.save();
 };
 
-export const getNotifications = async (page: number = 1, limit: number = 10, query: object = {}) => {
-    const notifications = await NotificationModel.find(query)
-        .sort({ timestamp: -1 })
-        .skip((page - 1) * limit)
-        .limit(limit);
+export const getNotifications = async (query: object = {}) => {
+    const notifications = await NotificationModel.find(query).sort({ timestamp: -1 });
     return notifications;
 };
   
