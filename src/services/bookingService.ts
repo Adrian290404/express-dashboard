@@ -1,6 +1,7 @@
 import { Booking } from "../interfaces/booking";
 import BookingModel from "../models/bookingModel";
 import EmployeeModel from "../models/employeeModel";
+import NotificationModel from "../models/notificationModel";
 import RoomModel from "../models/roomModel";
 import { createNotification } from "./notificationService";
 
@@ -35,7 +36,8 @@ export const addBooking = async (newBooking: Booking) => {
         collection: 'bookings',
         details: { 
             message: `Booking created: Room ${room?.room_name} booked by ${employee?.name}`, 
-            id: newBooking.id
+            id: newBooking.id,
+            seeContent: true
         }
     });
 
@@ -51,7 +53,8 @@ export const editBooking = async (id: number, updatedBooking: Booking) => {
         collection: 'bookings',
         details: { 
             message: `Booking updated: Room ${room?.room_name} booked by ${employee?.name}`, 
-            id: id
+            id: id,
+            seeContent: true
         }
     });
     
@@ -64,6 +67,17 @@ export const removeBooking = async (id: number) => {
     const employee = await EmployeeModel.findOne({ id: booking?.user_id });
     const room = await RoomModel.findOne({ id: booking?.room_id });
     if (booking) {
+        await NotificationModel.updateMany(
+            {
+                collection: 'bookings',
+                'details.id': id,
+                type: { $in: ['create', 'update'] }
+            },
+            {
+                $set: { 'details.seeContent': false }
+            }
+        );
+
         await createNotification({
             type: 'delete',
             collection: 'bookings',

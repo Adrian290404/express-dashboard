@@ -2,7 +2,7 @@ import { Room } from "../interfaces/room";
 import RoomModel from "../models/roomModel";
 import BookingModel from '../models/bookingModel'
 import { createNotification } from "./notificationService";
-import { ro } from "@faker-js/faker/.";
+import NotificationModel from "../models/notificationModel";
 
 export const fetchAllRooms = async () => {
     return await RoomModel.find();
@@ -28,7 +28,8 @@ export const addRoom = async (newRoom: Room) => {
         collection: 'rooms',
         details: { 
             message: `New room added: ${newRoom.room_name}`, 
-            id: newRoom.id 
+            id: newRoom.id,
+            seeContent: true
         }
     });
     
@@ -42,7 +43,8 @@ export const editRoom = async (id: number, updatedRoom: Room) => {
         collection: 'rooms',
         details: { 
             message: `Room updated: ${updatedRoom.room_name}`, 
-            id: id
+            id: id,
+            seeContent: true
         }
     });
 
@@ -53,6 +55,17 @@ export const removeRoom = async (id: number) => {
 
     const room = await RoomModel.findOne({ id: id });
     if (room) {
+        await NotificationModel.updateMany(
+            {
+                collection: 'rooms',
+                'details.id': id,
+                type: { $in: ['create', 'update'] }
+            },
+            {
+                $set: { 'details.seeContent': false }
+            }
+        );
+
         await createNotification({
             type: 'delete',
             collection: 'rooms',
@@ -60,7 +73,7 @@ export const removeRoom = async (id: number) => {
                 message: `Room deleted: ${room.room_name}`, 
                 redo: room
             }
-        });        
+        });
     }
 
     await BookingModel.deleteMany({ room_id: id });

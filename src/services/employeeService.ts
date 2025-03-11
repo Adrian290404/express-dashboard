@@ -1,6 +1,7 @@
 import { Employee } from "../interfaces/employee";
 import BookingModel from "../models/bookingModel";
 import EmployeeModel from "../models/employeeModel";
+import NotificationModel from "../models/notificationModel";
 import { createNotification } from "./notificationService";
 
 export const fetchAllEmployees = async () => {
@@ -27,7 +28,8 @@ export const addEmployee = async (newUser: Employee) => {
         collection: 'employees',
         details: { 
             message: `New employee added: ${newUser.name}`, 
-            id: newUser.id 
+            id: newUser.id ,
+            seeContent: true
         }
     });
 
@@ -41,7 +43,8 @@ export const editEmployee = async (id: number, updatedUser: Employee) => {
         collection: 'employees',
         details: { 
             message: `Employee updated: ${updatedUser.name}`, 
-            id: id
+            id: id,
+            seeContent: true
         }
     });
 
@@ -52,6 +55,17 @@ export const removeEmployee = async (id: number) => {
 
     const employee = await EmployeeModel.findOne({ id: id });
     if (employee) {
+        await NotificationModel.updateMany(
+            {
+                collection: 'employees',
+                'details.id': id,
+                type: { $in: ['create', 'update'] }
+            },
+            {
+                $set: { 'details.seeContent': false }
+            }
+        );
+
         await createNotification({
             type: 'delete',
             collection: 'employees',
@@ -59,7 +73,7 @@ export const removeEmployee = async (id: number) => {
                 message: `Employee deleted: ${employee.name}`, 
                 redo: employee
             }
-        });        
+        });   
     }
 
     await BookingModel.deleteMany({ user_id: id });
