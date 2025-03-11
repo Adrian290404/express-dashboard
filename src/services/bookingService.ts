@@ -34,7 +34,7 @@ export const addBooking = async (newBooking: Booking) => {
         type: 'create',
         collection: 'bookings',
         details: { 
-            message: `Booking deleted: Room ${room?.room_name} booked by ${employee?.name}`, 
+            message: `Booking created: Room ${room?.room_name} booked by ${employee?.name}`, 
             id: newBooking.id
         }
     });
@@ -50,8 +50,8 @@ export const editBooking = async (id: number, updatedBooking: Booking) => {
         type: 'update',
         collection: 'bookings',
         details: { 
-            message: `Booking deleted: Room ${room?.room_name} booked by ${employee?.name}`, 
-            id: {id}
+            message: `Booking updated: Room ${room?.room_name} booked by ${employee?.name}`, 
+            id: id
         }
     });
     
