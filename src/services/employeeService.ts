@@ -41,7 +41,7 @@ export const editEmployee = async (id: number, updatedUser: Employee) => {
         collection: 'employees',
         details: { 
             message: `Employee updated: ${updatedUser.name}`, 
-            id: {id}
+            id: id
         }
     });
 

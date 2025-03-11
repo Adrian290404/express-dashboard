@@ -42,7 +42,7 @@ export const editRoom = async (id: number, updatedRoom: Room) => {
         collection: 'rooms',
         details: { 
             message: `Room updated: ${updatedRoom.room_name}`, 
-            id: {id}
+            id: id
         }
     });
 
