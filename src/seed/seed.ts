@@ -30,7 +30,7 @@ const createRandomReview = (): Review => {
     return{
         order_id: reviewIdCounter++,
         date: faker.date.past().toISOString(),
-        customer: faker.person.fullName(),
+        customer_id: 0,
         rating: faker.number.int({ min: 1, max: 5 }),
         review: faker.lorem.sentences(faker.number.int({ min: 5, max: 20 })),
         action: faker.helpers.arrayElement(['pending', 'approved','rejected'])
