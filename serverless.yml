@@ -12,6 +12,19 @@ provider:
     MONGO_URI: ${env:MONGO_URI}
     ATLAS_PASSWORD: ${env:ATLAS_PASSWORD}
     ATLAS_USER: ${env:ATLAS_USER}
+  httpApi:
+    cors:
+      allowedOrigins:
+        - http://hotel-miranda-admin.s3-website.eu-west-3.amazonaws.com
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      allowedHeaders:
+        - Content-Type
+        - Authorization
 
 functions:
   api:
